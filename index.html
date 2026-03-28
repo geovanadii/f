@@ -1,216 +1,223 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <title>pra ti</title>
-    <style>
-      body {
-        margin: 0;
-        font-family: "Arial", sans-serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        background: linear-gradient(135deg, #a8e6cf, #3d8168);
-        background-size: cover;
-        color: #1b4332;
-      }
-      .container {
-        text-align: center;
-        background: #f0f7f4;
-        padding: 2rem;
-        border-radius: 16px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      }
-      input[type="text"] {
-        padding: 0.5rem;
-        font-size: 16px;
-        border: 2px solid #3d8168;
-        border-radius: 8px;
-      }
-      button {
-        margin-top: 1rem;
-        padding: 0.7rem 1.5rem;
-        background-color: #3d8168;
-        color: #fff;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-      }
-      .error {
-        color: #e63946;
-        margin-top: 0.5rem;
-        display: none;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <h1>Quem é você?</h1>
-      <input id="nameInput" type="text" placeholder="Nome" />
-      <button id="enterButton">Entrar</button>
-      <p class="error" id="errorMessage">Por favor, digite seu nome.</p>
-    </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <title>pra ti 💚</title>
 
-    <script>
-      // ✅ Variáveis globais para guardar as escolhas
-      let userChoices = {
-        name: "",
-        activity: "",
-        place: "",
-        date: "",
-        time: "",
-      };
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #a8e6cf, #3d8168);
+      color: #1b4332;
+    }
 
-      function startValentinesInvite() {
-        Swal.fire({
-          title: "EBA, É você! 💖",
-          text: "Gostaria de sair comigo? :>",
-          imageUrl: "7bc7db33a68241174b95762c994b364c (1).gif",
-          imageWidth: 200,
-          imageHeight: 200,
-          showDenyButton: true,
-          showCancelButton: true,
-          confirmButtonText: "Sim! 💘",
-          denyButtonText: "Não 😢",
-          cancelButtonText: "Talvez 🤔",
-        }).then((result) => {
-          if (result.isConfirmed) {
-            askPreferences();
-          } else if (result.isDenied) {
-            Swal.fire("Eita! 😢", "Triste, porém tenha um bom dia", "info");
-          } else {
-            Swal.fire("Sem pressa!", "Quando estiver pronta me avisa 🥰", "info");
-          }
-        });
-      }
+    .container {
+      text-align: center;
+      background: #f0f7f4;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
 
-      function askPreferences() {
-        Swal.fire({
-          title: "Ótimo! 💞",
-          text: "O que você gostaria de fazer?",
-          input: "select",
-          inputOptions: {
-            casual: "🍕 Barzinho",
-            dinner: "🍽️ Jantar",
-            lunch: "🍔 Almoço",
-            park: "🏖️ Parque",
-            cafe: "☕ Café"
-          },
-          inputPlaceholder: "Escolha algo",
-          showCancelButton: true,
-        }).then((result) => {
-          if (result.value) {
-            userChoices.activity = result.value;
-            askPlace(result.value);
-          }
-        });
-      }
+    input {
+      padding: 0.5rem;
+      font-size: 16px;
+      border: 2px solid #3d8168;
+      border-radius: 8px;
+    }
 
-      function askPlace(dateType) {
-        const options = {
-          casual: "um bom barzinho",
-          dinner: "um jantar tranquilo",
-          lunch: "um almoço especial",
-          park: "um passeio no parque",
-          cafe: "um café aconchegante",
-          cinema: "um festival de cinema italiano 🎬",
-          games: "uma sessão de fliperama 🕹️"
-        };
-        Swal.fire({
-          title: "Ótima escolha!",
-          text: `Onde você gostaria de ${options[dateType]}?`,
-          input: "text",
-          inputPlaceholder: "Ex: aquele barzinho da esquina...",
-          showCancelButton: true,
-        }).then((result) => {
-          if (result.value) {
-            userChoices.place = result.value;
-            askDate(dateType);
-          }
-        });
-      }
+    button {
+      margin-top: 1rem;
+      padding: 0.7rem 1.5rem;
+      background-color: #3d8168;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
 
-      function askDate(dateType) {
-        Swal.fire({
-          title: "Escolha a data! 📅",
-          input: "date",
-          showCancelButton: true,
-        }).then((result) => {
-          if (result.value) {
-            userChoices.date = result.value;
-            askTime(dateType);
-          }
-        });
-      }
+    .error {
+      color: #e63946;
+      margin-top: 0.5rem;
+      display: none;
+    }
+  </style>
+</head>
 
-      function askTime(dateType) {
-        Swal.fire({
-          title: "Qual horário? ⏰",
-          input: "select",
-          inputOptions: {
-            morning: "🌅 Manhã",
-            afternoon: "🌞 Tarde",
-            evening: "🌙 Noite",
-          },
-          inputPlaceholder: "Selecione a hora",
-          showCancelButton: true,
-        }).then((result) => {
-          if (result.value) {
-            userChoices.time = result.value;
-            showSummary();
-          }
-        });
-      }
+<body>
 
-      function showSummary() {
-        const timeMap = {
-          morning: "pela manhã",
-          afternoon: "à tarde",
-          evening: "à noite",
-        };
+<div class="container">
+  <h1>Quem é você? 💚</h1>
+  <input id="nameInput" type="text" placeholder="Seu nome..." />
+  <br />
+  <button id="enterButton">Entrar</button>
+  <p class="error" id="errorMessage">Digite um nome válido 😅</p>
+</div>
 
-        Swal.fire({
-          title: "YAAAAY É UM ENCONTRO! 🎉",
-          html: `
-            <p><b>Nome:</b> ${userChoices.name}</p>
-            <p><b>Atividade:</b> ${userChoices.activity}</p>
-            <p><b>Local:</b> ${userChoices.place}</p>
-            <p><b>Data:</b> ${userChoices.date}</p>
-            <p><b>Hora:</b> ${timeMap[userChoices.time]}</p>
-          `,
-          icon: "success",
-          confirmButtonText: "Mal posso esperar! 💘",
-        });
+<script>
+let userChoices = {
+  name: "",
+  activity: "",
+  place: "",
+  date: "",
+  time: "",
+};
 
-        // ✅ Enviar dados para o Google Sheets
-        fetch("https://script.google.com/macros/s/AKfycbzZw3wW3D4ea7V-D7egk-fpukvytt03sHLGsw7nQap0HiHmCPuagr2zgivsNdFAnCqQ/exec", {
-          method: "POST",
-          mode: "no-cors",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(userChoices),
-        })
-        .then(() => console.log("✅ Dados enviados com sucesso ao Google Sheets"))
-        .catch(err => console.error("Erro ao enviar:", err));
-      }
+const activityMap = {
+  casual: "🍕 Barzinho",
+  dinner: "🍽️ Jantar",
+  lunch: "🍔 Almoço",
+  park: "🌳 Parque",
+  cafe: "☕ Café"
+};
 
-      // ✅ Aceita qualquer nome (remove a limitação anterior)
-      const enterButton = document.getElementById("enterButton");
-      const nameInput = document.getElementById("nameInput");
-      const errorMessage = document.getElementById("errorMessage");
+function startValentinesInvite() {
+  Swal.fire({
+    title: "EBA, É você! 💖",
+    text: `Oi ${userChoices.name}, gostaria de sair comigo? :>`,
+    imageUrl: "https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif",
+    imageWidth: 200,
+    showDenyButton: true,
+    showCancelButton: true,
+    confirmButtonText: "Sim! 💘",
+    denyButtonText: "Não 😢",
+    cancelButtonText: "Talvez 🤔",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      askPreferences();
+    } else if (result.isDenied) {
+      Swal.fire("Poxa 😢", "Mas tudo bem, te desejo um ótimo dia 💚");
+    } else {
+      Swal.fire("Sem pressa 😌", "Quando quiser, me chama 💚");
+    }
+  });
+}
 
-      enterButton.addEventListener("click", () => {
-        const name = nameInput.value.trim();
-        if (name) {
-          userChoices.name = name;
-          startValentinesInvite();
-          errorMessage.style.display = "none";
-        } else {
-          errorMessage.style.display = "block";
-        }
-      });
-    </script>
-  </body>
+function askPreferences() {
+  Swal.fire({
+    title: "Perfeito! 💞",
+    text: "O que você gostaria de fazer?",
+    input: "select",
+    inputOptions: activityMap,
+    inputPlaceholder: "Escolha algo",
+    showCancelButton: true,
+  }).then((result) => {
+    if (!result.value) return cancelFlow();
+
+    userChoices.activity = result.value;
+    askPlace();
+  });
+}
+
+function askPlace() {
+  Swal.fire({
+    title: "Boa escolha 😏",
+    text: "Onde você gostaria de ir?",
+    input: "text",
+    inputPlaceholder: "Ex: um lugar especial...",
+    showCancelButton: true,
+  }).then((result) => {
+    if (!result.value) return cancelFlow();
+
+    userChoices.place = result.value;
+    askDate();
+  });
+}
+
+function askDate() {
+  Swal.fire({
+    title: "Escolha a data 📅",
+    input: "date",
+    showCancelButton: true,
+  }).then((result) => {
+    if (!result.value) return cancelFlow();
+
+    userChoices.date = result.value;
+    askTime();
+  });
+}
+
+function askTime() {
+  Swal.fire({
+    title: "Agora o horário ⏰",
+    input: "select",
+    inputOptions: {
+      morning: "🌅 Manhã",
+      afternoon: "🌞 Tarde",
+      evening: "🌙 Noite",
+    },
+    inputPlaceholder: "Selecione",
+    showCancelButton: true,
+  }).then((result) => {
+    if (!result.value) return cancelFlow();
+
+    userChoices.time = result.value;
+    showSummary();
+  });
+}
+
+function showSummary() {
+  const timeMap = {
+    morning: "Manhã 🌅",
+    afternoon: "Tarde 🌞",
+    evening: "Noite 🌙",
+  };
+
+  const formattedDate = new Date(userChoices.date)
+    .toLocaleDateString("pt-BR");
+
+  Swal.fire({
+    title: "Temos um encontro! 🎉",
+    html: `
+      <p><b>Nome:</b> ${userChoices.name}</p>
+      <p><b>Atividade:</b> ${activityMap[userChoices.activity]}</p>
+      <p><b>Local:</b> ${userChoices.place}</p>
+      <p><b>Data:</b> ${formattedDate}</p>
+      <p><b>Hora:</b> ${timeMap[userChoices.time]}</p>
+    `,
+    icon: "success",
+    confirmButtonText: "Mal posso esperar 💘",
+  });
+
+  // envio
+  fetch("https://script.google.com/macros/s/AKfycbzZw3wW3D4ea7V-D7egk-fpukvytt03sHLGsw7nQap0HiHmCPuagr2zgivsNdFAnCqQ/exec", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(userChoices),
+  })
+  .then(() => console.log("✅ Enviado"))
+  .catch(() => console.log("❌ Erro ao enviar"));
+}
+
+function cancelFlow() {
+  Swal.fire("Tudo bem 😅", "A gente tenta outro dia!", "info");
+}
+
+// botão inicial
+const enterButton = document.getElementById("enterButton");
+const nameInput = document.getElementById("nameInput");
+const errorMessage = document.getElementById("errorMessage");
+
+enterButton.addEventListener("click", () => {
+  const name = nameInput.value.trim();
+
+  if (name.length < 2) {
+    errorMessage.style.display = "block";
+    return;
+  }
+
+  userChoices.name = name;
+  errorMessage.style.display = "none";
+  startValentinesInvite();
+});
+</script>
+
+</body>
 </html>
