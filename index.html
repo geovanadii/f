@@ -102,9 +102,9 @@
           inputPlaceholder: "Escolha algo",
           showCancelButton: true,
         }).then((result) => {
-          if (result.value) {
-            userChoices.activity = result.value;
-            askPlace(result.value);
+          if (!result.isDismissed) {
+            userChoices.place = result.value || "A definir";
+            askDate(dateType);
           }
         });
       }
