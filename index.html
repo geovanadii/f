@@ -55,7 +55,6 @@
     </div>
 
     <script>
-      // ✅ Variáveis globais para guardar as escolhas
       let userChoices = {
         name: "",
         activity: "",
@@ -103,8 +102,8 @@
           showCancelButton: true,
         }).then((result) => {
           if (!result.isDismissed) {
-            userChoices.place = result.value || "A definir";
-            askDate(dateType);
+            userChoices.activity = result.value;
+            askPlace(result.value);
           }
         });
       }
@@ -116,8 +115,6 @@
           lunch: "um almoço especial",
           park: "um passeio no parque",
           cafe: "um café aconchegante",
-          cinema: "um festival de cinema italiano 🎬",
-          games: "uma sessão de fliperama 🕹️"
         };
         Swal.fire({
           title: "Ótima escolha!",
@@ -126,8 +123,8 @@
           inputPlaceholder: "Ex: aquele barzinho da esquina...",
           showCancelButton: true,
         }).then((result) => {
-          if (result.value) {
-            userChoices.place = result.value;
+          if (!result.isDismissed) {
+            userChoices.place = result.value || "A definir";
             askDate(dateType);
           }
         });
@@ -185,7 +182,6 @@
           confirmButtonText: "Mal posso esperar! 💘",
         });
 
-        // ✅ Enviar dados para o Google Sheets
         fetch("https://script.google.com/macros/s/AKfycbzZw3wW3D4ea7V-D7egk-fpukvytt03sHLGsw7nQap0HiHmCPuagr2zgivsNdFAnCqQ/exec", {
           method: "POST",
           mode: "no-cors",
@@ -196,7 +192,6 @@
         .catch(err => console.error("Erro ao enviar:", err));
       }
 
-      // ✅ não aceita q qualquer nome (remove a limitação anterior)
       const enterButton = document.getElementById("enterButton");
       const nameInput = document.getElementById("nameInput");
       const errorMessage = document.getElementById("errorMessage");
@@ -219,4 +214,3 @@
     </script>
   </body>
 </html>
-
