@@ -67,20 +67,20 @@
         Swal.fire({
           title: "EBA, É você! 💖",
           text: "Gostaria de sair comigo? :>",
-          imageUrl: "7bc7db33a68241174b95762c994b364c (1).gif",
-          imageWidth: 200,
-          imageHeight: 200,
           showDenyButton: true,
           showCancelButton: true,
           confirmButtonText: "Sim! 💘",
           denyButtonText: "Não 😢",
           cancelButtonText: "Talvez 🤔",
+          confirmButtonColor: "#3d8168",
+          denyButtonColor: "#e63946",
+          cancelButtonColor: "#a8e6cf",
         }).then((result) => {
           if (result.isConfirmed) {
             askPreferences();
           } else if (result.isDenied) {
             Swal.fire("Eita! 😢", "Triste, porém tenha um bom dia", "info");
-          } else {
+          } else if (result.dismiss === Swal.DismissReason.cancel) {
             Swal.fire("Sem pressa!", "Quando estiver pronta me avisa 🥰", "info");
           }
         });
@@ -100,8 +100,10 @@
           },
           inputPlaceholder: "Escolha algo",
           showCancelButton: true,
+          confirmButtonColor: "#3d8168",
+          cancelButtonColor: "#e63946",
         }).then((result) => {
-          if (!result.isDismissed) {
+          if (result.isConfirmed) {
             userChoices.activity = result.value;
             askPlace(result.value);
           }
@@ -122,8 +124,10 @@
           input: "text",
           inputPlaceholder: "Ex: aquele barzinho da esquina...",
           showCancelButton: true,
+          confirmButtonColor: "#3d8168",
+          cancelButtonColor: "#e63946",
         }).then((result) => {
-          if (!result.isDismissed) {
+          if (result.isConfirmed) {
             userChoices.place = result.value || "A definir";
             askDate(dateType);
           }
@@ -135,9 +139,11 @@
           title: "Escolha a data! 📅",
           input: "date",
           showCancelButton: true,
+          confirmButtonColor: "#3d8168",
+          cancelButtonColor: "#e63946",
         }).then((result) => {
-          if (result.value) {
-            userChoices.date = result.value;
+          if (result.isConfirmed) {
+            userChoices.date = result.value || "A definir";
             askTime(dateType);
           }
         });
@@ -154,8 +160,10 @@
           },
           inputPlaceholder: "Selecione a hora",
           showCancelButton: true,
+          confirmButtonColor: "#3d8168",
+          cancelButtonColor: "#e63946",
         }).then((result) => {
-          if (result.value) {
+          if (result.isConfirmed) {
             userChoices.time = result.value;
             showSummary();
           }
