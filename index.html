@@ -187,14 +187,14 @@ function showSummary() {
   });
 
   // envio
-  fetch("https://script.google.com/macros/s/AKfycbzsHGmpClMotKo9OJHyW7icipLj1rh9MF6FvXdsr3B7Tb-CHQGyUKeY1TW62PKy9tyg/exec", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(userChoices),
-  })
-  .then(() => console.log("✅ Enviado"))
-  .catch(() => console.log("❌ Erro ao enviar"));
-}
+ fetch("https://script.google.com/macros/s/AKfycbzsHGmpClMotKo9OJHyW7icipLj1rh9MF6FvXdsr3B7Tb-CHQGyUKeY1TW62PKy9tyg/exec", {
+  method: "POST",
+  mode: "no-cors", // 👈 essa linha resolve o bloqueio do browser
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(userChoices),
+})
+.then(() => console.log("✅ Enviado"))
+.catch(() => console.log("❌ Erro ao enviar"));
 
 function cancelFlow() {
   Swal.fire("Tudo bem 😅", "A gente tenta outro dia!", "info");
